@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,44 +16,34 @@ import fr.isen.duterte.androiderestaurant.databinding.ActivityCategoryBinding
 
 class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListener {
     private lateinit var monRecycler: RecyclerView
-    private lateinit var items: ArrayList<Item>
     private lateinit var binding: ActivityCategoryBinding
+    private lateinit var category: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityCategoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.titleCategory.text = intent.getStringExtra("categorie").toString()
-
-        postVolley()
-
-        items = fillItems()
+        category = intent.getStringExtra("categorie").toString()
+        binding.titleCategory.text = category
 
         monRecycler = binding.recycleViewCategory
         monRecycler.layoutManager = LinearLayoutManager(this)
-        monRecycler.adapter = CategoryAdapter(items,this)
+        monRecycler.adapter = CategoryAdapter(arrayListOf(),this)
 
-
-
+        postVolley()
     }
 
-    fun fillItems() : ArrayList<Item> {
-        val items = ArrayList<Item>()
-        items.add(Item("item1",getString(R.string.image)))
-        items.add(Item("item2",getString(R.string.image)))
-        return items
-    }
 
-    override fun onItemClick(item: Item) {
+    override fun onItemClick(item: APIItems) {
         val intent = Intent(this,ItemViewActivity::class.java)
-        Toast.makeText(this@CategoryActivity, "you clicked on ${item.name_fr}",Toast.LENGTH_SHORT).show()
+        Log.d("Cat",item.toString())
         intent.putExtra("item",item)
         startActivity(intent)
     }
 
 
-    fun postVolley() {
+    private fun postVolley() {
         val queue = Volley.newRequestQueue(this)
         val url = "http://test.api.catering.bluecodegames.com/menu"
 
@@ -64,14 +53,14 @@ class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListene
             Request.Method.POST, url, requestBody,
             { response ->
                 // response
-                var strResp = response.toString()
-                var item = Gson().fromJson(strResp, APIData::class.java)
-                Log.d("API",item.data[0].name_fr)
+                val strResp = response.toString()
+                val dataResult = Gson().fromJson(strResp, APIData::class.java)
 
-                Log.d("API", strResp)
+                val items = dataResult.data.firstOrNull { it.name_fr == category }?.items ?: arrayListOf()
 
-
-
+                monRecycler = binding.recycleViewCategory
+                monRecycler.layoutManager = LinearLayoutManager(this)
+                monRecycler.adapter = CategoryAdapter(items,this)
 
             },
             { error ->
@@ -79,6 +68,4 @@ class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListene
             })
         queue.add(stringReq)
     }
-
-
 }
