@@ -4,6 +4,11 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +31,7 @@ class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListene
         setContentView(binding.root)
         category = intent.getStringExtra("categorie").toString()
         binding.titleCategory.text = category
+
 
         monRecycler = binding.recycleViewCategory
         monRecycler.layoutManager = LinearLayoutManager(this)
@@ -62,10 +68,34 @@ class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListene
                 monRecycler.layoutManager = LinearLayoutManager(this)
                 monRecycler.adapter = CategoryAdapter(items,this)
 
+                binding.pBar.visibility = View.INVISIBLE
+
             },
             { error ->
                 Log.d("API", "error => $error")
             })
         queue.add(stringReq)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.cardIcon -> {
+                displayCard()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun displayCard() {
+        val intent = Intent(this, PanierActivity::class.java)
+        startActivity(intent)
     }
 }

@@ -47,6 +47,7 @@ class CategoryAdapter(val itemsAfficher : ArrayList<APIItems>, var listener: OnI
             holder.onClick(itemsAfficher[position])
         }
 
+
     }
 
     // return the number of the items in the list

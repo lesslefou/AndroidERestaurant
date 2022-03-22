@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".PanierAdapter"
+    android:orientation="horizontal">
+    <ImageView
+        android:id="@+id/itemImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/nameText"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintTop_toTopOf="@id/itemView"
+        app:layout_constraintBottom_toBottomOf="@id/itemView"/>
+    <TextView
+        android:id="@+id/nameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="@string/desserts"
+        app:layout_constraintStart_toEndOf="@id/itemImage"
+        app:layout_constraintEnd_toStartOf="@id/quantityText"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintTop_toTopOf="@id/itemView"
+        app:layout_constraintBottom_toBottomOf="@id/itemView"/>
+
+    <TextView
+        android:id="@+id/quantityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="@string/desserts"
+        app:layout_constraintStart_toEndOf="@id/nameText"
+        app:layout_constraintEnd_toStartOf="@id/priceText"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintTop_toTopOf="@id/itemView"
+        app:layout_constraintBottom_toBottomOf="@id/itemView"/>
+
+    <TextView
+        android:id="@+id/priceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="@string/desserts"
+        app:layout_constraintStart_toEndOf="@id/quantityText"
+        app:layout_constraintEnd_toStartOf="@id/deleteBtn"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintTop_toTopOf="@id/itemView"
+        app:layout_constraintBottom_toBottomOf="@id/itemView"/>
+
+    <ImageView
+        android:id="@+id/deleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/delete"
+        app:layout_constraintStart_toEndOf="@id/priceText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintTop_toTopOf="@id/itemView"
+        app:layout_constraintBottom_toBottomOf="@id/itemView"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        app:layout_constraintTop_toBottomOf="@id/itemView"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

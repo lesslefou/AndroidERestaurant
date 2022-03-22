@@ -4,37 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CategoryActivity">
+    tools:context=".PanierActivity">
 
     <TextView
-        android:id="@+id/titleCategory"
+        android:id="@+id/panierTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="40dp"
         android:textStyle="bold"
+        android:text="@string/panier"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleViewCategory"
+        android:id="@+id/recycleViewPanier"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleCategory" />
+        app:layout_constraintTop_toBottomOf="@id/panierTitle"
+        app:layout_constraintBottom_toTopOf="@id/btnCommander"/>
 
 
-    <ProgressBar
-        android:id="@+id/pBar"
-        style="?android:attr/progressBarStyleHorizontal"
+
+    <Button
+        android:id="@+id/btnCommander"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/titleCategory"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/commander"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="visible"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

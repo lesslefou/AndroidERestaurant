@@ -3,12 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/drawable/roundedbutton.xml" value="0.20092592592592592" />
         <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_category.xml" value="0.1634963768115942" />
         <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_category_adapter.xml" value="0.21" />
         <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_entree.xml" value="0.1" />
         <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_item_view.xml" value="0.17980072463768115" />
         <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_panier.xml" value="0.13551165146909827" />
+        <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_panier_adapter.xml" value="0.12462006079027356" />
         <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_view_pager_adapter.xml" value="0.13903985507246377" />
+        <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/toolbar.xml" value="0.35067437379576105" />
+        <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/menu/menu.xml" value="0.24791666666666667" />
       </map>
     </option>
   </component>

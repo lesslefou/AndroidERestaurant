@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name">AndroidERestaurant</string>
     <string name="bienvenue">Bienvenue \nchez</string>
+
     <string name="entrees">Entrées</string>
     <string name="plats">Plats</string>
     <string name="desserts">Desserts</string>
-    <string name="image">https:\/\/cooking-chef.sa.metacdn.com\/sites\/default\/files\/styles\/recipe_visuel_node\/public\/recettes\/recette-salade%20lyonnaise.jpg</string>
+
+    <string name="annuler">Annuler</string>
+    <string name="valider">Valider</string>
+    <string name="alertMessage">Voulez vous ajouter cet article ?</string>
+    <string name="panier">Panier</string>
+    <string name="commander">Commander</string>
 </resources>
