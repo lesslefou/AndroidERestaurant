@@ -3,6 +3,7 @@ package fr.isen.duterte.androiderestaurant
 import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,9 +33,15 @@ class PanierAdapter(val data: ArrayList<ItemPanier>, val clickListener: (ItemPan
 
     override fun onBindViewHolder(holder: PanierViewHolder, position: Int) {
         val item = data[position]
-        holder.nameItem.text = item.apiItems.name_fr
+        if (item.apiItems.name_fr.length > 13) {
+            holder.nameItem.text = item.apiItems.name_fr.subSequence(0,13)
+        }
+        else {
+            holder.nameItem.text = item.apiItems.name_fr
+        }
         holder.quantityItem.text = item.quantity.toString()
-        holder.priceItem.text = item.apiItems.prices[0].price
+        var price = item.apiItems.prices[0].price.toFloat() * item.quantity
+        holder.priceItem.text = price.toString()
 
         val url = item.apiItems.images[0]
         Picasso.get().load(url.ifEmpty { null }).fit().centerCrop()
@@ -42,7 +49,11 @@ class PanierAdapter(val data: ArrayList<ItemPanier>, val clickListener: (ItemPan
             .error(R.drawable.ic_launcher_background)
             .into(holder.imageView);
 
-        holder.itemView.setOnClickListener { clickListener(item) }
+        holder.deleteItem.setOnClickListener {
+            data.remove(data[position])
+            notifyItemRemoved(position)
+            clickListener(item)
+        }
     }
 
     override fun getItemCount(): Int {

@@ -11,7 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/bienvenue"
-        android:textSize="20dp"
+        android:textSize="30dp"
+        android:textColor="@color/orange"
+        android:gravity="end"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/nameText"
         app:layout_constraintEnd_toEndOf="@id/nameText"/>
@@ -23,6 +26,7 @@
         android:text="@string/app_name"
         android:textSize="20dp"
         android:textStyle="bold"
+        android:typeface="serif"
         app:layout_constraintTop_toBottomOf="@+id/bienvenueText"
         app:layout_constraintBottom_toBottomOf="@id/logoCuisto"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,19 +36,20 @@
         android:id="@+id/logoCuisto"
         android:layout_width="177dp"
         android:layout_height="181dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
         android:src="@drawable/logo_cuisto"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/logoCuisto"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.3">
 
         <TextView
             android:id="@+id/entreesText"
@@ -54,14 +59,23 @@
             android:textSize="40dp"
             android:textStyle="bold"
             android:gravity="center"
-            android:onClick="onClick"
-            android:clickable="true"/>
+            android:clickable="true"
+            android:textColor="@color/orange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/view1"
+            android:layout_marginBottom="20dp"/>
 
         <View
             android:id="@+id/view1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/black" />
+            android:background="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/entreesText"
+            app:layout_constraintBottom_toTopOf="@id/platsText"/>
 
         <TextView
             android:id="@+id/platsText"
@@ -71,14 +85,24 @@
             android:text="@string/plats"
             android:textSize="40dp"
             android:textStyle="bold"
-            android:onClick="onClick"
-            android:clickable="true" />
+            android:clickable="true"
+            android:textColor="@color/orange"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view1"
+            app:layout_constraintBottom_toTopOf="@id/view2"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"/>
 
         <View
             android:id="@+id/view2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/black"/>
+            android:background="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/platsText"
+            app:layout_constraintBottom_toTopOf="@id/desertsText"/>
         <TextView
             android:id="@+id/desertsText"
             android:layout_width="match_parent"
@@ -86,12 +110,17 @@
             android:text="@string/desserts"
             android:textSize="40dp"
             android:textStyle="bold"
+            android:textColor="@color/orange"
             android:gravity="center"
-            android:onClick="onClick"
-            android:clickable="true"/>
+            android:clickable="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="20dp"/>
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

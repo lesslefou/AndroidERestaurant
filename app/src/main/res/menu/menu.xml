@@ -8,4 +8,10 @@
         android:icon="@drawable/card"
         android:title="card"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/nbItems"
+        android:title="2"
+        app:actionLayout="@layout/menu_text_layout"
+        app:showAsAction="ifRoom" />
 </menu>

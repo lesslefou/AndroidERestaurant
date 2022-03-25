@@ -1,5 +1,6 @@
 package fr.isen.duterte.androiderestaurant
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,22 +9,18 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Adapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
-import com.google.gson.stream.JsonWriter
 import fr.isen.duterte.androiderestaurant.databinding.ActivityItemViewBinding
 import java.io.File
-import java.io.Writer
 
 class ItemViewActivity : AppCompatActivity() {
     private lateinit var item: APIItems
     private lateinit var binding: ActivityItemViewBinding
     private var quantity: Int = 1
     private lateinit var price: String
-    private lateinit var panierList: ArrayList<ItemPanier>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +28,6 @@ class ItemViewActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         item = intent.getSerializableExtra("item") as APIItems
-        panierList = arrayListOf()
 
         //Nom
         binding.nameItem.text = item.name_fr
@@ -72,9 +68,34 @@ class ItemViewActivity : AppCompatActivity() {
     }
 
     private fun ajoutPanier() {
-        val itemPanier = ItemPanier(this.item, this.quantity)
-        File(cacheDir.absolutePath + "basket.json").appendText(itemPanier.toString())
+        sharedPreferenceUpdate(this.quantity)
+
+        val panierList = checkIfExist()
+        val strPanier = Gson().toJson(panierList, PanierList::class.java)
+        File(cacheDir.absolutePath + "basket.json").writeText(strPanier )
         finish()
+    }
+
+
+
+
+    private fun checkIfExist(): PanierList? {
+        var exist = false
+        val panierList = Gson().fromJson(File(cacheDir.absolutePath + "basket.json").readText(),PanierList::class.java)
+
+        panierList.panier.forEach{
+            Log.d("Panier", "name ${it.apiItems.name_fr} , item ${this.item.name_fr}")
+            if (it.apiItems.name_fr.equals(this.item.name_fr)) {
+                exist = true
+                it.quantity += this.quantity
+            }
+        }
+
+        if (!exist) {
+            panierList.panier.add(ItemPanier(this.item, this.quantity))
+        }
+        return panierList
+
     }
 
     private fun gestionQuantity(symbole: Char) {
@@ -89,18 +110,33 @@ class ItemViewActivity : AppCompatActivity() {
     }
 
     private fun displayPrice() {
-        price = "Total " + (item.prices[0].price.toInt() * this.quantity).toString() + "€"
+        price = "Total " + (item.prices[0].price.toFloat() * this.quantity).toString() + "€"
         binding.totalButton.text = price
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
+
+        val sharedPreference =  getSharedPreferences("PANIER", Context.MODE_PRIVATE)
+        val sharedNbItems = sharedPreference.getInt("nbItems", 0)
+
+        var nb = menu.findItem(R.id.nbItems).actionView
+        var nbText = nb.findViewById<TextView>(R.id.nbItemsText)
+        nbText.text = sharedNbItems.toString()
         return true
     }
 
+    private fun sharedPreferenceUpdate(quantity: Int) {
+        val sharedPreference =  getSharedPreferences("PANIER", Context.MODE_PRIVATE)
+        var nbItem = sharedPreference.getInt("nbItems", 0)
+        nbItem += quantity
+        var editor = sharedPreference.edit()
+        editor.putInt("nbItems",nbItem)
+        editor.apply()
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle item selection
         return when (item.itemId) {
             R.id.cardIcon -> {
                 displayCard()

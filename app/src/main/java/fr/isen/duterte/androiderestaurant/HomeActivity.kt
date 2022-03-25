@@ -1,5 +1,6 @@
 package fr.isen.duterte.androiderestaurant
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,6 +17,8 @@ class HomeActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        sharedPreferenceCreation()
 
         binding.entreesText.setOnClickListener{goToCategory(getString(R.string.entrees))}
         binding.platsText.setOnClickListener{goToCategory(getString(R.string.plats))}
@@ -35,4 +38,10 @@ class HomeActivity : AppCompatActivity() {
         Log.i("HomeActivity", "onDestroy !")
     }
 
+    private fun sharedPreferenceCreation() {
+        val sharedPreference =  getSharedPreferences("PANIER", Context.MODE_PRIVATE)
+        var editor = sharedPreference.edit()
+        editor.putInt("nbItems",0)
+        editor.commit()
+    }
 }

@@ -21,7 +21,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintTop_toTopOf="@id/itemView"
-            app:layout_constraintBottom_toBottomOf="@id/itemView"/>
+            app:layout_constraintBottom_toBottomOf="@id/itemView"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
         <TextView
             android:id="@+id/itemText"
             android:layout_width="wrap_content"

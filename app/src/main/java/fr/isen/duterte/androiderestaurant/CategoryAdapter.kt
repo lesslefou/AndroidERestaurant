@@ -33,20 +33,29 @@ class CategoryAdapter(val itemsAfficher : ArrayList<APIItems>, var listener: OnI
     // binds the list items to a view
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val itemsViewModel = itemsAfficher[position]
-        val url = itemsViewModel.images[0]
+        val url = itemsAfficher[position].images[0]
 
         Picasso.get().load(url.ifEmpty { null }).fit().centerCrop()
             .placeholder(R.drawable.ic_launcher_foreground)
             .error(R.drawable.ic_launcher_background)
             .into(holder.imageView);
 
-        holder.textView.text = itemsViewModel.name_fr
+        if (itemsViewModel.name_fr.length > 25) {
+            holder.textView.text = itemsViewModel.name_fr.subSequence(0,25)
+        }
+        else {
+            holder.textView.text = itemsViewModel.name_fr
+        }
         Log.d("Adapter : ", itemsViewModel.name_fr)
 
         holder.itemView.setOnClickListener {
             holder.onClick(itemsAfficher[position])
         }
 
+
+    }
+
+    private fun onResume() {
 
     }
 

@@ -1,14 +1,17 @@
 package fr.isen.duterte.androiderestaurant
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.SpannableString
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +20,7 @@ import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import com.android.volley.toolbox.JsonObjectRequest
 import com.google.gson.Gson
+import com.squareup.picasso.StatsSnapshot
 import fr.isen.duterte.androiderestaurant.databinding.ActivityCategoryBinding
 
 class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListener {
@@ -43,7 +47,6 @@ class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListene
 
     override fun onItemClick(item: APIItems) {
         val intent = Intent(this,ItemViewActivity::class.java)
-        Log.d("Cat",item.toString())
         intent.putExtra("item",item)
         startActivity(intent)
     }
@@ -80,6 +83,13 @@ class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListene
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
+
+        val sharedPreference =  this.getSharedPreferences("PANIER", Context.MODE_PRIVATE)
+        val sharedNbItems = sharedPreference.getInt("nbItems", 0)
+
+        var nb = menu.findItem(R.id.nbItems).actionView
+        var nbText = nb.findViewById<TextView>(R.id.nbItemsText)
+        nbText.text = sharedNbItems.toString()
         return true
     }
 
@@ -97,5 +107,11 @@ class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListene
     private fun displayCard() {
         val intent = Intent(this, PanierActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        invalidateOptionsMenu()
     }
 }

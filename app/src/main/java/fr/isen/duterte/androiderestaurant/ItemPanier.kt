@@ -2,4 +2,4 @@ package fr.isen.duterte.androiderestaurant
 
 import java.io.Serializable
 
-class ItemPanier (val apiItems: APIItems, val quantity:Int) : Serializable
+class ItemPanier (var apiItems: APIItems, var quantity:Int) : Serializable
