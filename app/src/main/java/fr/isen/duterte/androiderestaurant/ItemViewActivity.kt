@@ -12,6 +12,8 @@ import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.google.gson.Gson
 import fr.isen.duterte.androiderestaurant.databinding.ActivityItemViewBinding
 import java.io.File
@@ -118,8 +120,15 @@ class ItemViewActivity : AppCompatActivity() {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
 
-        val sharedPreference =  getSharedPreferences("PANIER", Context.MODE_PRIVATE)
-        val sharedNbItems = sharedPreference.getInt("nbItems", 0)
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        val sharedPreferences = EncryptedSharedPreferences.create(
+            "PANIER",
+            masterKeyAlias,
+            this,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+        val sharedNbItems = sharedPreferences.getInt("nbItems", 0)
 
         var nb = menu.findItem(R.id.nbItems).actionView
         var nbText = nb.findViewById<TextView>(R.id.nbItemsText)
@@ -128,12 +137,20 @@ class ItemViewActivity : AppCompatActivity() {
     }
 
     private fun sharedPreferenceUpdate(quantity: Int) {
-        val sharedPreference =  getSharedPreferences("PANIER", Context.MODE_PRIVATE)
-        var nbItem = sharedPreference.getInt("nbItems", 0)
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        val sharedPreferences = EncryptedSharedPreferences.create(
+            "PANIER",
+            masterKeyAlias,
+            this,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+        var nbItem = sharedPreferences.getInt("nbItems", 0)
         nbItem += quantity
-        var editor = sharedPreference.edit()
-        editor.putInt("nbItems",nbItem)
-        editor.apply()
+
+        sharedPreferences.edit()
+            .putInt("nbItems",nbItem)
+            .apply()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

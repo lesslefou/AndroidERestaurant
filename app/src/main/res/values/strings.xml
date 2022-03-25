@@ -11,4 +11,5 @@
     <string name="alertMessage">Voulez vous ajouter cet article ?</string>
     <string name="panier">Panier</string>
     <string name="commander">Commander</string>
+    <string name="commanderToast">Merci d\'avoir passer une commande chez nous</string>
 </resources>

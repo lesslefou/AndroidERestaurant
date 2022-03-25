@@ -1,11 +1,12 @@
 package fr.isen.duterte.androiderestaurant
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import fr.isen.duterte.androiderestaurant.databinding.ActivityMainBinding
 
 class HomeActivity : AppCompatActivity() {
@@ -39,9 +40,17 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun sharedPreferenceCreation() {
-        val sharedPreference =  getSharedPreferences("PANIER", Context.MODE_PRIVATE)
-        var editor = sharedPreference.edit()
-        editor.putInt("nbItems",0)
-        editor.commit()
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        val sharedPreferences = EncryptedSharedPreferences.create(
+            "PANIER",
+            masterKeyAlias,
+            this,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+
+        sharedPreferences.edit()
+            .putInt("nbItems",0)
+            .apply()
     }
 }

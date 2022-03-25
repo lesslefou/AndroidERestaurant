@@ -15,7 +15,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.android.volley.Request
+import com.android.volley.RequestQueue
+import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import com.android.volley.toolbox.JsonObjectRequest
@@ -35,7 +39,6 @@ class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListene
         setContentView(binding.root)
         category = intent.getStringExtra("categorie").toString()
         binding.titleCategory.text = category
-
 
         monRecycler = binding.recycleViewCategory
         monRecycler.layoutManager = LinearLayoutManager(this)
@@ -77,6 +80,7 @@ class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListene
             { error ->
                 Log.d("API", "error => $error")
             })
+        stringReq.setShouldCache(true)
         queue.add(stringReq)
     }
 
@@ -84,8 +88,16 @@ class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListene
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
 
-        val sharedPreference =  this.getSharedPreferences("PANIER", Context.MODE_PRIVATE)
-        val sharedNbItems = sharedPreference.getInt("nbItems", 0)
+        val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
+        val sharedPreferences = EncryptedSharedPreferences.create(
+            "PANIER",
+            masterKeyAlias,
+            this,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+        val sharedNbItems = sharedPreferences.getInt("nbItems", 0)
+        Log.d("Cat",sharedNbItems.toString())
 
         var nb = menu.findItem(R.id.nbItems).actionView
         var nbText = nb.findViewById<TextView>(R.id.nbItemsText)

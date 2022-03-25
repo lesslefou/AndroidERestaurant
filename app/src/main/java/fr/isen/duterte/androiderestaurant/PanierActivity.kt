@@ -1,11 +1,16 @@
 package fr.isen.duterte.androiderestaurant
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKeys
 import com.google.gson.Gson
 import fr.isen.duterte.androiderestaurant.databinding.ActivityPanierBinding
 import java.io.File
@@ -28,29 +33,52 @@ class PanierActivity : AppCompatActivity() {
             deleteItem(it)
         }
 
+        binding.btnCommander.setOnClickListener{
+            commander()
+        }
+
+    }
+
+    private fun commander(){
+        panierList.panier.forEach{
+            panierList.panier.remove(it)
+        }
+        val strPanier = Gson().toJson(panierList, PanierList::class.java)
+        File(cacheDir.absolutePath + "basket.json").writeText(strPanier )
+
+
+        val intent = Intent(this,HomeActivity::class.java)
+        Toast.makeText(applicationContext, R.string.commanderToast, Toast.LENGTH_SHORT).show()
+        startActivity(intent)
+
     }
 
     private fun deleteItem(item: ItemPanier) {
         panierList.panier.forEach {
             if (it.apiItems.equals(item)) {
-                //ItemViewActivity.sharedPreferenceUpdate(-it.quantity)
                 sharedPreferenceUpdate(-it.quantity)
                 panierList.panier.remove(it)
             }
         }
-
 
         val strPanier = Gson().toJson(panierList, PanierList::class.java)
         File(cacheDir.absolutePath + "basket.json").writeText(strPanier )
     }
 
     fun sharedPreferenceUpdate(quantity: Int) {
-        val sharedPreference =  getSharedPreferences("PANIER", Context.MODE_PRIVATE)
-        var nbItem = 0
-        sharedPreference.getInt("nbItems", nbItem)
+        val masterKeyAlias = MasterKeys.getOrCreate(
+        MasterKeys.AES256_GCM_SPEC)
+        val sharedPreferences = EncryptedSharedPreferences.create(
+            "PANIER",
+            masterKeyAlias,
+            this,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+        var nbItem = sharedPreferences.getInt("nbItems", 0)
         nbItem += quantity
-        var editor = sharedPreference.edit()
-        editor.putInt("nbItems",nbItem)
-        editor.apply()
+        sharedPreferences.edit()
+            .putInt("nbItems",nbItem)
+            .apply()
     }
 }
