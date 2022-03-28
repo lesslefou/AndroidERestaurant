@@ -1,4 +1,4 @@
-package fr.isen.duterte.androiderestaurant
+package fr.isen.duterte.androiderestaurant.erestaurant
 
 import java.io.Serializable
 

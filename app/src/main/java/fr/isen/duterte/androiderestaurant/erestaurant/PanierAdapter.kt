@@ -1,16 +1,12 @@
-package fr.isen.duterte.androiderestaurant
+package fr.isen.duterte.androiderestaurant.erestaurant
 
-import android.media.Image
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import fr.isen.duterte.androiderestaurant.R
 import fr.isen.duterte.androiderestaurant.databinding.ActivityPanierAdapterBinding
 
 class PanierAdapter(val data: ArrayList<ItemPanier>, val clickListener: (ItemPanier) -> Unit)

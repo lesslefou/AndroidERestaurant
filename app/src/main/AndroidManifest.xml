@@ -3,7 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="fr.isen.duterte.androiderestaurant">
 
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -14,22 +23,28 @@
         android:theme="@style/Theme.AndroidERestaurant"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".PanierAdapter"
+            android:name=".ble.BleAdapter"
             android:exported="false" />
         <activity
-            android:name=".PanierActivity"
+            android:name=".ble.BleLauncher"
             android:exported="false" />
         <activity
-            android:name=".ViewPagerAdapter"
+            android:name=".erestaurant.PanierAdapter"
             android:exported="false" />
         <activity
-            android:name=".ItemViewActivity"
+            android:name=".erestaurant.PanierActivity"
             android:exported="false" />
         <activity
-            android:name=".CategoryAdapter"
+            android:name=".erestaurant.ViewPagerAdapter"
             android:exported="false" />
         <activity
-            android:name=".CategoryActivity"
+            android:name=".erestaurant.ItemViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".erestaurant.CategoryAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".erestaurant.CategoryActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"

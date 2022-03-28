@@ -1,30 +1,26 @@
-package fr.isen.duterte.androiderestaurant
+package fr.isen.duterte.androiderestaurant.erestaurant
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.SpannableString
 import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.android.volley.Request
-import com.android.volley.RequestQueue
-import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 import com.android.volley.toolbox.JsonObjectRequest
 import com.google.gson.Gson
-import com.squareup.picasso.StatsSnapshot
+import fr.isen.duterte.androiderestaurant.R
+import fr.isen.duterte.androiderestaurant.api.APIData
+import fr.isen.duterte.androiderestaurant.api.APIItems
 import fr.isen.duterte.androiderestaurant.databinding.ActivityCategoryBinding
 
 class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListener {
@@ -49,7 +45,7 @@ class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListene
 
 
     override fun onItemClick(item: APIItems) {
-        val intent = Intent(this,ItemViewActivity::class.java)
+        val intent = Intent(this, ItemViewActivity::class.java)
         intent.putExtra("item",item)
         startActivity(intent)
     }

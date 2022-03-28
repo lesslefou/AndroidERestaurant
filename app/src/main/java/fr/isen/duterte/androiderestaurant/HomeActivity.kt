@@ -7,7 +7,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import fr.isen.duterte.androiderestaurant.ble.BleLauncher
 import fr.isen.duterte.androiderestaurant.databinding.ActivityMainBinding
+import fr.isen.duterte.androiderestaurant.erestaurant.CategoryActivity
 
 class HomeActivity : AppCompatActivity() {
 
@@ -24,10 +26,14 @@ class HomeActivity : AppCompatActivity() {
         binding.entreesText.setOnClickListener{goToCategory(getString(R.string.entrees))}
         binding.platsText.setOnClickListener{goToCategory(getString(R.string.plats))}
         binding.desertsText.setOnClickListener{goToCategory(getString(R.string.desserts))}
+        binding.blebtn.setOnClickListener{
+            val intent = Intent(this, BleLauncher::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun goToCategory(s: String) {
-        val intent = Intent(this,CategoryActivity::class.java)
+        val intent = Intent(this, CategoryActivity::class.java)
         val toast = Toast.makeText(applicationContext, s, Toast.LENGTH_SHORT)
         toast.show()
         intent.putExtra("categorie",s)

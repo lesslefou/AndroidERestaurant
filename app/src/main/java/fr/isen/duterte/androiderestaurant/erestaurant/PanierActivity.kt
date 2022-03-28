@@ -1,17 +1,16 @@
-package fr.isen.duterte.androiderestaurant
+package fr.isen.duterte.androiderestaurant.erestaurant
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.google.gson.Gson
+import fr.isen.duterte.androiderestaurant.HomeActivity
+import fr.isen.duterte.androiderestaurant.R
 import fr.isen.duterte.androiderestaurant.databinding.ActivityPanierBinding
 import java.io.File
 
@@ -26,7 +25,8 @@ class PanierActivity : AppCompatActivity() {
         binding = ActivityPanierBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        panierList = Gson().fromJson(File(cacheDir.absolutePath + "basket.json").readText(),PanierList::class.java)
+        panierList = Gson().fromJson(File(cacheDir.absolutePath + "basket.json").readText(),
+            PanierList::class.java)
         monRecycler = binding.recycleViewPanier
         monRecycler.layoutManager = LinearLayoutManager(this)
         monRecycler.adapter = PanierAdapter(panierList.panier){
@@ -47,7 +47,7 @@ class PanierActivity : AppCompatActivity() {
         File(cacheDir.absolutePath + "basket.json").writeText(strPanier )
 
 
-        val intent = Intent(this,HomeActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java)
         Toast.makeText(applicationContext, R.string.commanderToast, Toast.LENGTH_SHORT).show()
         startActivity(intent)
 

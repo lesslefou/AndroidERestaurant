@@ -12,4 +12,18 @@
     <string name="panier">Panier</string>
     <string name="commander">Commander</string>
     <string name="commanderToast">Merci d\'avoir passer une commande chez nous</string>
+
+    <string name="ble">BLE</string>
+    <string name="bleMessage">Lancer le Scan BLE</string>
+    <string name="bleMessageEnCours">Scan BLE en cours ...</string>
+    <string name="blenondispo">BLE on disponible sur cet appareil</string>
+
+    <string name="deviceUnknown">Device Unknown</string>
+    <string name="defCharacteristique">Characteristique Spécifique</string>
+    <string name="uuid">UUID : </string>
+    <string name="proprietes">Propriétés : </string>
+    <string name="valeur">Valeur : </string>
+    <string name="lecture">LECTURE</string>
+    <string name="ecrire">ECRIRE</string>
+    <string name="notifier">NOTIFIER</string>
 </resources>

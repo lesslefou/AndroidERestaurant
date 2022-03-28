@@ -1,4 +1,4 @@
-package fr.isen.duterte.androiderestaurant
+package fr.isen.duterte.androiderestaurant.erestaurant
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import fr.isen.duterte.androiderestaurant.R
+import fr.isen.duterte.androiderestaurant.api.APIItems
 import fr.isen.duterte.androiderestaurant.databinding.ActivityCategoryAdapterBinding
 
 class CategoryAdapter(val itemsAfficher : ArrayList<APIItems>, var listener: OnItemClickListener)

@@ -1,4 +1,4 @@
-package fr.isen.duterte.androiderestaurant
+package fr.isen.duterte.androiderestaurant.erestaurant
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.viewpager.widget.PagerAdapter
 import com.squareup.picasso.Picasso
-import java.net.URL
+import fr.isen.duterte.androiderestaurant.R
 
 class ViewPagerAdapter(var list: ArrayList<String>, var ctx: Context) : PagerAdapter() {
 

@@ -1,3 +1,3 @@
-package fr.isen.duterte.androiderestaurant
+package fr.isen.duterte.androiderestaurant.api
 
 data class APIData (val data : ArrayList<APIItem>)

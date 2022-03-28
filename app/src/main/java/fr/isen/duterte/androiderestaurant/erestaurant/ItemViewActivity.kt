@@ -1,6 +1,5 @@
-package fr.isen.duterte.androiderestaurant
+package fr.isen.duterte.androiderestaurant.erestaurant
 
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,11 +9,12 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
 import com.google.gson.Gson
+import fr.isen.duterte.androiderestaurant.R
+import fr.isen.duterte.androiderestaurant.api.APIItems
 import fr.isen.duterte.androiderestaurant.databinding.ActivityItemViewBinding
 import java.io.File
 
@@ -83,7 +83,8 @@ class ItemViewActivity : AppCompatActivity() {
 
     private fun checkIfExist(): PanierList? {
         var exist = false
-        val panierList = Gson().fromJson(File(cacheDir.absolutePath + "basket.json").readText(),PanierList::class.java)
+        val panierList = Gson().fromJson(File(cacheDir.absolutePath + "basket.json").readText(),
+            PanierList::class.java)
 
         panierList.panier.forEach{
             Log.d("Panier", "name ${it.apiItems.name_fr} , item ${this.item.name_fr}")
