@@ -22,8 +22,8 @@ class BleLauncher : AppCompatActivity()  {
     private lateinit var binding: ActivityBleLauncherBinding
     private lateinit var monRecycler: RecyclerView
     private lateinit var bleAdapter: BleAdapter
-    private var isScanning : Boolean = true
-    private lateinit var bleDevices: ArrayList<ScanResult>
+    private var isScanning : Boolean = false
+    private lateinit var bleDevices: ArrayList<ExpandedDevice>
 
     private val bluetoothAdapter: BluetoothAdapter? by lazy(LazyThreadSafetyMode.NONE) {
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
@@ -46,7 +46,10 @@ class BleLauncher : AppCompatActivity()  {
 
         monRecycler = binding.recycleViewBle
         monRecycler.layoutManager = LinearLayoutManager(this)
-        bleAdapter = BleAdapter(bleDevices) {}
+        bleAdapter = BleAdapter(bleDevices) {
+            it.expand = !it.expand
+            bleAdapter.notifyDataSetChanged()
+        }
         monRecycler.adapter = bleAdapter
 
         when {
@@ -113,14 +116,15 @@ class BleLauncher : AppCompatActivity()  {
 
     private val scanCallback = object : ScanCallback() {
         override fun onScanResult(callbackType: Int, result: ScanResult) {
-            val index = bleDevices.indexOfFirst { it.device.address.equals(result.device.address) }
+            val index = bleDevices.indexOfFirst { it.scR.device.address.equals(result.device.address) }
             if (index != -1) {
-                bleDevices[index] = result
+                bleDevices[index].scR = result
             }
             else {
-                bleDevices.add(result)
+                bleDevices.add( ExpandedDevice(result))
             }
-            bleDevices.sortBy {kotlin.math.abs(it.rssi) }
+            Log.d("BLE","$result")
+            bleDevices.sortBy {kotlin.math.abs(it.scR.rssi) }
             bleAdapter.notifyDataSetChanged()
         }
     }
