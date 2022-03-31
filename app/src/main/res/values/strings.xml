@@ -18,6 +18,10 @@
     <string name="bleMessageEnCours">Scan BLE en cours ...</string>
     <string name="blenondispo">BLE on disponible sur cet appareil</string>
 
+    <string name="status">Status :</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+
     <string name="deviceUnknown">Device Unknown</string>
     <string name="defCharacteristique">Characteristique Spécifique</string>
     <string name="uuid">UUID : </string>

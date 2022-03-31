@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".ble.BleAdapter"
+    tools:context=".ble.BleLauncherAdapter"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,92 +48,6 @@
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintTop_toBottomOf="@id/name"
             app:layout_constraintBottom_toBottomOf="@id/itemView"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/expanded_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/def"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/defCharacteristique"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/uuidExpanded"/>
-
-        <TextView
-            android:id="@+id/uuidExpanded"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/uuid"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/def"
-            app:layout_constraintBottom_toTopOf="@id/proprieteExpanded"/>
-
-        <TextView
-            android:id="@+id/proprieteExpanded"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/proprietes"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/uuidExpanded"
-            app:layout_constraintBottom_toTopOf="@id/valeurExpanded" />
-
-        <TextView
-            android:id="@+id/valeurExpanded"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/proprietes"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/proprieteExpanded"
-            app:layout_constraintBottom_toTopOf="@id/btnLecture" />
-
-        <Button
-            android:id="@+id/btnLecture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/lecture"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@id/valeurExpanded"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnEcrire" />
-
-        <Button
-            android:id="@+id/btnEcrire"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/ecrire"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@id/valeurExpanded"
-            app:layout_constraintBottom_toBottomOf="@+id/btnLecture"
-            app:layout_constraintStart_toEndOf="@id/btnLecture"
-            app:layout_constraintEnd_toStartOf="@+id/btnNotifier" />
-
-        <Button
-            android:id="@+id/btnNotifier"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/notifier"
-            android:textSize="18sp"
-            app:layout_constraintTop_toBottomOf="@id/valeurExpanded"
-            app:layout_constraintBottom_toBottomOf="@+id/btnEcrire"
-            app:layout_constraintStart_toEndOf="@id/btnEcrire"
-            app:layout_constraintEnd_toEndOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View

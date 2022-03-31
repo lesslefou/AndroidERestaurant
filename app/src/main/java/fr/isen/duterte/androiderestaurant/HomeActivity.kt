@@ -7,7 +7,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
-import fr.isen.duterte.androiderestaurant.ble.BleLauncher
+import fr.isen.duterte.androiderestaurant.ble.BleLauncherActivity
 import fr.isen.duterte.androiderestaurant.databinding.ActivityMainBinding
 import fr.isen.duterte.androiderestaurant.erestaurant.CategoryActivity
 
@@ -27,7 +27,7 @@ class HomeActivity : AppCompatActivity() {
         binding.platsText.setOnClickListener{goToCategory(getString(R.string.plats))}
         binding.desertsText.setOnClickListener{goToCategory(getString(R.string.desserts))}
         binding.blebtn.setOnClickListener{
-            val intent = Intent(this, BleLauncher::class.java)
+            val intent = Intent(this, BleLauncherActivity::class.java)
             startActivity(intent)
         }
     }

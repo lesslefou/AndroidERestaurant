@@ -5,6 +5,8 @@
       <map>
         <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/drawable/roundedbutton.xml" value="0.20092592592592592" />
         <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_ble_adapter.xml" value="0.16" />
+        <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_ble_device.xml" value="0.30625" />
+        <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_ble_device_adapter.xml" value="0.30625" />
         <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_ble_launcher.xml" value="0.25" />
         <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_category.xml" value="0.1634963768115942" />
         <entry key="..\:/Users/lisad/AndroidStudioProjects/AndroidERestaurant/app/src/main/res/layout/activity_category_adapter.xml" value="0.21" />

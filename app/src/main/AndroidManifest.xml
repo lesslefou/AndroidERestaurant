@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <uses-feature
         android:name="android.hardware.bluetooth_le"
         android:required="true" />
@@ -23,10 +24,16 @@
         android:theme="@style/Theme.AndroidERestaurant"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ble.BleAdapter"
+            android:name=".ble.BleDeviceAdapterActivity"
             android:exported="false" />
         <activity
-            android:name=".ble.BleLauncher"
+            android:name=".ble.BleDeviceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ble.BleLauncherAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".ble.BleLauncherActivity"
             android:exported="false" />
         <activity
             android:name=".erestaurant.PanierAdapter"

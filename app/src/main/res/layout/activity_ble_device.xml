@@ -4,41 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ble.BleLauncherActivity">
+    tools:context=".ble.BleDeviceActivity">
 
 
     <TextView
-        android:id="@+id/bleText"
+        android:id="@+id/deviceName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/bleMessage"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/playBtn"/>
+        app:layout_constraintBottom_toTopOf="@id/status"/>
 
-    <ImageButton
-        android:id="@+id/playBtn"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/play"
-        app:layout_constraintBottom_toBottomOf="@+id/bleText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/bleText"
-        app:layout_constraintTop_toTopOf="@id/bleText" />
-
-    <ProgressBar
-        android:id="@+id/progressBarBLE"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="?android:attr/progressBarStyleHorizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bleText"
-        android:visibility="visible"
-        android:layout_marginTop="20dp"/>
+        android:text="@string/bleMessage"
+        app:layout_constraintTop_toBottomOf="@id/deviceName"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/status"
+        app:layout_constraintBottom_toTopOf="@id/recycleViewCharacteristics"
+        android:background="@color/orange" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleViewBle"
+        android:id="@+id/recycleViewCharacteristics"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
@@ -46,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progressBarBLE"
+        app:layout_constraintTop_toBottomOf="@id/view"
         app:layout_constraintVertical_bias="0.0" />
 
 

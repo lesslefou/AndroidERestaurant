@@ -18,12 +18,12 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.isen.duterte.androiderestaurant.R
 import fr.isen.duterte.androiderestaurant.databinding.ActivityBleLauncherBinding
 
-class BleLauncher : AppCompatActivity()  {
+class BleLauncherActivity : AppCompatActivity()  {
     private lateinit var binding: ActivityBleLauncherBinding
     private lateinit var monRecycler: RecyclerView
-    private lateinit var bleAdapter: BleAdapter
+    private lateinit var bleLauncherAdapter: BleLauncherAdapter
     private var isScanning : Boolean = false
-    private lateinit var bleDevices: ArrayList<ExpandedDevice>
+    private lateinit var bleDevices: ArrayList<ScanResult>
 
     private val bluetoothAdapter: BluetoothAdapter? by lazy(LazyThreadSafetyMode.NONE) {
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
@@ -46,11 +46,12 @@ class BleLauncher : AppCompatActivity()  {
 
         monRecycler = binding.recycleViewBle
         monRecycler.layoutManager = LinearLayoutManager(this)
-        bleAdapter = BleAdapter(bleDevices) {
-            it.expand = !it.expand
-            bleAdapter.notifyDataSetChanged()
+        bleLauncherAdapter = BleLauncherAdapter(bleDevices) {
+            val intent = Intent(this, BleDeviceActivity::class.java)
+            intent.putExtra("Device",it)
+            startActivity(intent)
         }
-        monRecycler.adapter = bleAdapter
+        monRecycler.adapter = bleLauncherAdapter
 
         when {
             bluetoothAdapter?.isEnabled == true -> {
@@ -116,16 +117,16 @@ class BleLauncher : AppCompatActivity()  {
 
     private val scanCallback = object : ScanCallback() {
         override fun onScanResult(callbackType: Int, result: ScanResult) {
-            val index = bleDevices.indexOfFirst { it.scR.device.address.equals(result.device.address) }
+            val index = bleDevices.indexOfFirst { it.device.address.equals(result.device.address) }
             if (index != -1) {
-                bleDevices[index].scR = result
+                bleDevices[index] = result
             }
             else {
-                bleDevices.add( ExpandedDevice(result))
+                bleDevices.add(result)
             }
             Log.d("BLE","$result")
-            bleDevices.sortBy {kotlin.math.abs(it.scR.rssi) }
-            bleAdapter.notifyDataSetChanged()
+            bleDevices.sortBy {kotlin.math.abs(it.rssi) }
+            bleLauncherAdapter.notifyDataSetChanged()
         }
     }
 
