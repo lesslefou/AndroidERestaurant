@@ -27,6 +27,9 @@ class PanierAdapter(val data: ArrayList<ItemPanier>, val clickListener: (ItemPan
         return PanierViewHolder(binding)
     }
 
+    /**
+     * Mise en place des élements de chaque item
+     */
     override fun onBindViewHolder(holder: PanierViewHolder, position: Int) {
         val item = data[position]
         if (item.apiItems.name_fr.length > 13) {

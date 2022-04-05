@@ -1,8 +1,7 @@
 package fr.isen.duterte.androiderestaurant.ble
 
 import android.Manifest
-import android.bluetooth.BluetoothAdapter
-import android.bluetooth.BluetoothManager
+import android.bluetooth.*
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
 import android.content.Context
@@ -24,6 +23,7 @@ class BleLauncherActivity : AppCompatActivity()  {
     private lateinit var bleLauncherAdapter: BleLauncherAdapter
     private var isScanning : Boolean = false
     private lateinit var bleDevices: ArrayList<ScanResult>
+    private lateinit var deviceToConnect : BluetoothDevice
 
     private val bluetoothAdapter: BluetoothAdapter? by lazy(LazyThreadSafetyMode.NONE) {
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
@@ -47,9 +47,8 @@ class BleLauncherActivity : AppCompatActivity()  {
         monRecycler = binding.recycleViewBle
         monRecycler.layoutManager = LinearLayoutManager(this)
         bleLauncherAdapter = BleLauncherAdapter(bleDevices) {
-            val intent = Intent(this, BleDeviceActivity::class.java)
-            intent.putExtra("Device",it)
-            startActivity(intent)
+            deviceToConnect = it
+            connectionToDevice()
         }
         monRecycler.adapter = bleLauncherAdapter
 
@@ -71,6 +70,19 @@ class BleLauncherActivity : AppCompatActivity()  {
         }
     }
 
+    /**
+     * Arret de la recherche en cours si pas deja fait et redirection sur la page du device
+     */
+    private fun connectionToDevice() {
+        if (isScanning){
+            onStop()
+        }
+
+        val intent = Intent(this@BleLauncherActivity, BleDeviceActivity::class.java)
+        intent.putExtra("Device",deviceToConnect)
+        startActivity(intent)
+    }
+
     private fun displayBLEUnavailable() {
         binding.playBtn.isVisible = false
         binding.bleText.text = getString(R.string.blenondispo)
@@ -78,6 +90,9 @@ class BleLauncherActivity : AppCompatActivity()  {
     }
 
 
+    /**
+     * Demande acceptation des permissions
+     */
     private fun askBluetoothPermission() {
         val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
         if (ActivityCompat.checkSelfPermission(
@@ -89,6 +104,9 @@ class BleLauncherActivity : AppCompatActivity()  {
     }
 
 
+    /**
+     * Vérification des permissions avant de lancer la recherche bluetooth
+     */
     private fun startLeScanBLEWithPermission(enable : Boolean) {
         if (ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.ACCESS_FINE_LOCATION
@@ -101,6 +119,9 @@ class BleLauncherActivity : AppCompatActivity()  {
         }
     }
 
+    /**
+     * Activation et Désactivation de la recherche bluetooth
+     */
     private fun startLeScanBLE(enable: Boolean) {
         bluetoothAdapter?.bluetoothLeScanner?.apply {
             if (enable){
@@ -115,6 +136,10 @@ class BleLauncherActivity : AppCompatActivity()  {
         }
     }
 
+    /**
+     * Enregistre tout les nouveaux device dans une arrayList et met à jour les anciens deja présent sur la liste.
+     * Avec ordonnance croissante des valeurs rrsi
+     */
     private val scanCallback = object : ScanCallback() {
         override fun onScanResult(callbackType: Int, result: ScanResult) {
             val index = bleDevices.indexOfFirst { it.device.address.equals(result.device.address) }
@@ -130,6 +155,9 @@ class BleLauncherActivity : AppCompatActivity()  {
         }
     }
 
+    /**
+     * Change l'état du bouton et du text de chargement
+     */
     private fun handlePlayPauseAction() {
         if (isScanning) {
             binding.playBtn.setImageResource(R.drawable.pause)

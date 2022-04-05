@@ -33,11 +33,11 @@
         android:layout_height="1dp"
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/status"
-        app:layout_constraintBottom_toTopOf="@id/recycleViewCharacteristics"
+        app:layout_constraintBottom_toTopOf="@id/recycleViewService"
         android:background="@color/orange" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleViewCharacteristics"
+        android:id="@+id/recycleViewService"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"

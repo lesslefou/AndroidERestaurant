@@ -16,7 +16,7 @@
     <string name="ble">BLE</string>
     <string name="bleMessage">Lancer le Scan BLE</string>
     <string name="bleMessageEnCours">Scan BLE en cours ...</string>
-    <string name="blenondispo">BLE on disponible sur cet appareil</string>
+    <string name="blenondispo">BLE non disponible sur cet appareil</string>
 
     <string name="status">Status :</string>
     <string name="connected">Connected</string>
@@ -30,4 +30,15 @@
     <string name="lecture">LECTURE</string>
     <string name="ecrire">ECRIRE</string>
     <string name="notifier">NOTIFIER</string>
+
+    <string name="ble_device_status">Status : %1$s</string>
+    <string name="ble_device_status_connecting">Connexion en cours</string>
+    <string name="ble_device_status_connected">Connecté</string>
+    <string name="ble_device_status_disconnected">Déconnecté</string>
+    <string name="ble_device_status_disconnecting">Déconnexion en cours</string>
+
+
+    <string name="ble_device_write_characteristic_title">Ecrire la valeur</string>
+    <string name="ble_device_write_characteristic_confirm">Valider</string>
+    <string name="ble_device_write_characteristic_cancel">Annuler</string>
 </resources>

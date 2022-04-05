@@ -24,6 +24,9 @@
         android:theme="@style/Theme.AndroidERestaurant"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ble.BleServiceAdapterActivity"
+            android:exported="false" />
+        <activity
             android:name=".ble.BleDeviceAdapterActivity"
             android:exported="false" />
         <activity

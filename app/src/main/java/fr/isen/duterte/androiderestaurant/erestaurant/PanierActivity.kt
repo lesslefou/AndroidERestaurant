@@ -39,6 +39,9 @@ class PanierActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Finalisation de la commande
+     */
     private fun commander(){
         panierList.panier.forEach{
             panierList.panier.remove(it)
@@ -53,6 +56,9 @@ class PanierActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Suppression de l'item du fichier et réduction de la quantité des shared preferences
+     */
     private fun deleteItem(item: ItemPanier) {
         panierList.panier.forEach {
             if (it.apiItems.equals(item)) {
@@ -65,6 +71,9 @@ class PanierActivity : AppCompatActivity() {
         File(cacheDir.absolutePath + "basket.json").writeText(strPanier )
     }
 
+    /**
+     * Mise à jour des Shared Preferences sécurisé du panier
+     */
     fun sharedPreferenceUpdate(quantity: Int) {
         val masterKeyAlias = MasterKeys.getOrCreate(
         MasterKeys.AES256_GCM_SPEC)

@@ -23,11 +23,13 @@ class ViewPagerAdapter(var list: ArrayList<String>, var ctx: Context) : PagerAda
         return view.equals(`object`)
     }
 
+    /**
+     * Mise en place des images du carroussel
+     */
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         layoutInflater = LayoutInflater.from(ctx)
 
         var view = layoutInflater.inflate(R.layout.activity_view_pager_adapter,container,false)
-
         val img = view.findViewById<ImageView>(R.id.imageViewMain)
 
         Picasso.get().load(list[position].ifEmpty { null }).fit().centerCrop()
@@ -38,8 +40,6 @@ class ViewPagerAdapter(var list: ArrayList<String>, var ctx: Context) : PagerAda
         container.addView(view,0)
         return view
     }
-
-
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         container.removeView(`object` as View)

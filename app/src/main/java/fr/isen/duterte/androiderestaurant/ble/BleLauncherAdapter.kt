@@ -1,6 +1,7 @@
 package fr.isen.duterte.androiderestaurant.ble
 
 
+import android.bluetooth.BluetoothDevice
 import android.bluetooth.le.ScanResult
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import fr.isen.duterte.androiderestaurant.R
 import fr.isen.duterte.androiderestaurant.databinding.ActivityBleAdapterBinding
 
-class BleLauncherAdapter(val data: ArrayList<ScanResult>, val clickListener: (ScanResult) -> Unit)
+class BleLauncherAdapter(val data: ArrayList<ScanResult>, val clickListener: (BluetoothDevice) -> Unit)
     : RecyclerView.Adapter<BleLauncherAdapter.BleViewHolder>(){
     private lateinit var binding: ActivityBleAdapterBinding
 
@@ -28,6 +29,9 @@ class BleLauncherAdapter(val data: ArrayList<ScanResult>, val clickListener: (Sc
         return BleViewHolder(binding)
     }
 
+    /**
+     * Affichage des données par device
+     */
     override fun onBindViewHolder(holder: BleViewHolder, position: Int) {
         val device = data[position]
         Log.d("BLEAdapter", device.toString())
@@ -41,10 +45,8 @@ class BleLauncherAdapter(val data: ArrayList<ScanResult>, val clickListener: (Sc
         holder.rrsiView.text = device.rssi.toString()
 
         holder.itemLayout.setOnClickListener {
-            clickListener(device)
+            clickListener(device.device)
         }
-
-
     }
 
     override fun getItemCount(): Int {

@@ -32,6 +32,9 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Redirection vers la page de la catégorie choisie
+     */
     private fun goToCategory(s: String) {
         val intent = Intent(this, CategoryActivity::class.java)
         val toast = Toast.makeText(applicationContext, s, Toast.LENGTH_SHORT)
@@ -45,6 +48,9 @@ class HomeActivity : AppCompatActivity() {
         Log.i("HomeActivity", "onDestroy !")
     }
 
+    /**
+     * Mise en place de Shared Preferences sécurisé pour le nombre d'items dans le panier
+     */
     private fun sharedPreferenceCreation() {
         val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
         val sharedPreferences = EncryptedSharedPreferences.create(

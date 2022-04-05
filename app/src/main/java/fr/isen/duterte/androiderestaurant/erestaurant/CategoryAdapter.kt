@@ -32,7 +32,9 @@ class CategoryAdapter(val itemsAfficher : ArrayList<APIItems>, var listener: OnI
         return ItemViewHolder(binding)
     }
 
-    // binds the list items to a view
+    /**
+     * Mise en place des élements de chaque item
+     */
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val itemsViewModel = itemsAfficher[position]
         val url = itemsAfficher[position].images[0]
@@ -57,11 +59,9 @@ class CategoryAdapter(val itemsAfficher : ArrayList<APIItems>, var listener: OnI
 
     }
 
-    private fun onResume() {
-
-    }
-
-    // return the number of the items in the list
+    /**
+     * retourne le nombre d'éléments dans la liste
+     */
     override fun getItemCount(): Int {
         return itemsAfficher.size
     }

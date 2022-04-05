@@ -69,6 +69,9 @@ class ItemViewActivity : AppCompatActivity() {
 
     }
 
+    /**
+     * Mise à jour du fichier basket.json avec la liste des éléments du panier
+     */
     private fun ajoutPanier() {
         sharedPreferenceUpdate(this.quantity)
 
@@ -79,8 +82,9 @@ class ItemViewActivity : AppCompatActivity() {
     }
 
 
-
-
+    /**
+     * On vient checker si l'item à ajouter et ou non déjà dans le panier pour faire une mise à jour de la quantité ou l'insertion dans la liste
+     */
     private fun checkIfExist(): PanierList? {
         var exist = false
         val panierList = Gson().fromJson(File(cacheDir.absolutePath + "basket.json").readText(),
@@ -98,9 +102,11 @@ class ItemViewActivity : AppCompatActivity() {
             panierList.panier.add(ItemPanier(this.item, this.quantity))
         }
         return panierList
-
     }
 
+    /**
+     * Récupération de la quantité choisie par l'utilisateur
+     */
     private fun gestionQuantity(symbole: Char) {
         if (symbole.equals('-') && quantity > 1) {
             binding.quantity.text = (quantity - 1).toString()
@@ -112,11 +118,17 @@ class ItemViewActivity : AppCompatActivity() {
         displayPrice()
     }
 
+    /**
+     * Affichage personnalisé du prix de l'article
+     */
     private fun displayPrice() {
         price = "Total " + (item.prices[0].price.toFloat() * this.quantity).toString() + "€"
         binding.totalButton.text = price
     }
 
+    /**
+     * Récupération des Shared Preferences sécurisé du panier + affichage
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
@@ -137,6 +149,9 @@ class ItemViewActivity : AppCompatActivity() {
         return true
     }
 
+    /**
+     * Mise à jour des Shared Preferences sécurisé du panier
+     */
     private fun sharedPreferenceUpdate(quantity: Int) {
         val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
         val sharedPreferences = EncryptedSharedPreferences.create(
@@ -154,6 +169,9 @@ class ItemViewActivity : AppCompatActivity() {
             .apply()
     }
 
+    /**
+     * Redirection vers le panier au clique sur l'icon panier
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.cardIcon -> {

@@ -44,13 +44,19 @@ class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListene
     }
 
 
+    /**
+     * Redirection vers la page de l'item cliqué
+     */
     override fun onItemClick(item: APIItems) {
         val intent = Intent(this, ItemViewActivity::class.java)
         intent.putExtra("item",item)
         startActivity(intent)
     }
 
-
+    /**
+     * Mie en place de l'appel de l'api restaurant avec implémentation du recyclerview
+     * progresse bar désactivé avec le chargement fini de l'api
+     */
     private fun postVolley() {
         val queue = Volley.newRequestQueue(this)
         val url = "http://test.api.catering.bluecodegames.com/menu"
@@ -80,6 +86,9 @@ class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListene
         queue.add(stringReq)
     }
 
+    /**
+     * Récupération du Shared Preferences sécurisé pour le nombre d'items dans le panier et affichage
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu, menu)
@@ -101,6 +110,9 @@ class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListene
         return true
     }
 
+    /**
+     * Redirection vers le panier au clique sur l'icon panier
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection
         return when (item.itemId) {
@@ -119,7 +131,6 @@ class CategoryActivity : AppCompatActivity(), CategoryAdapter.OnItemClickListene
 
     override fun onResume() {
         super.onResume()
-
         invalidateOptionsMenu()
     }
 }
