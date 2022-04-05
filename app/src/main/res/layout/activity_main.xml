@@ -10,21 +10,22 @@
         android:id="@+id/bienvenueText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/bienvenue"
-        android:textSize="30dp"
-        android:textColor="@color/orange"
         android:gravity="end"
+        android:text="@string/bienvenue"
+        android:textColor="@color/orange"
+        android:textSize="30dp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="@id/nameText"
-        app:layout_constraintEnd_toEndOf="@id/nameText"/>
+        app:layout_constraintEnd_toStartOf="@id/logoCuisto"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:textStyle="bold"
         android:typeface="serif"
         app:layout_constraintTop_toBottomOf="@+id/bienvenueText"

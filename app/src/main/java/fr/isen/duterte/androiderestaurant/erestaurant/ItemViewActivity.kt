@@ -70,14 +70,14 @@ class ItemViewActivity : AppCompatActivity() {
     }
 
     /**
-     * Mise à jour du fichier basket.json avec la liste des éléments du panier
+     * Mise à jour du fichier panier.json avec la liste des éléments du panier
      */
     private fun ajoutPanier() {
         sharedPreferenceUpdate(this.quantity)
 
         val panierList = checkIfExist()
         val strPanier = Gson().toJson(panierList, PanierList::class.java)
-        File(cacheDir.absolutePath + "basket.json").writeText(strPanier )
+        File(cacheDir.absolutePath + "panier.json").writeText(strPanier )
         finish()
     }
 
@@ -87,7 +87,7 @@ class ItemViewActivity : AppCompatActivity() {
      */
     private fun checkIfExist(): PanierList? {
         var exist = false
-        val panierList = Gson().fromJson(File(cacheDir.absolutePath + "basket.json").readText(),
+        val panierList = Gson().fromJson(File(cacheDir.absolutePath + "panier.json").readText(),
             PanierList::class.java)
 
         panierList.panier.forEach{

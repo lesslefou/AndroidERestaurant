@@ -25,7 +25,7 @@ class PanierActivity : AppCompatActivity() {
         binding = ActivityPanierBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        panierList = Gson().fromJson(File(cacheDir.absolutePath + "basket.json").readText(),
+        panierList = Gson().fromJson(File(cacheDir.absolutePath + "panier.json").readText(),
             PanierList::class.java)
         monRecycler = binding.recycleViewPanier
         monRecycler.layoutManager = LinearLayoutManager(this)
@@ -47,7 +47,7 @@ class PanierActivity : AppCompatActivity() {
             panierList.panier.remove(it)
         }
         val strPanier = Gson().toJson(panierList, PanierList::class.java)
-        File(cacheDir.absolutePath + "basket.json").writeText(strPanier )
+        File(cacheDir.absolutePath + "panier.json").writeText(strPanier )
 
 
         val intent = Intent(this, HomeActivity::class.java)
@@ -68,7 +68,7 @@ class PanierActivity : AppCompatActivity() {
         }
 
         val strPanier = Gson().toJson(panierList, PanierList::class.java)
-        File(cacheDir.absolutePath + "basket.json").writeText(strPanier )
+        File(cacheDir.absolutePath + "panier.json").writeText(strPanier )
     }
 
     /**
