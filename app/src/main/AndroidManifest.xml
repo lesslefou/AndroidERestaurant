@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <uses-feature
         android:name="android.hardware.bluetooth_le"
@@ -24,37 +25,17 @@
         android:theme="@style/Theme.AndroidERestaurant"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ble.BleDeviceAdapterActivity"
-            android:exported="false"
-            tools:ignore="Instantiatable" />
-        <activity
             android:name=".ble.BleDeviceActivity"
             android:exported="false" />
-        <activity
-            android:name=".ble.BleLauncherAdapter"
-            android:exported="false"
-            tools:ignore="Instantiatable"  />
         <activity
             android:name=".ble.BleLauncherActivity"
             android:exported="false" />
         <activity
-            android:name=".erestaurant.PanierAdapter"
-            android:exported="false"
-            tools:ignore="Instantiatable"  />
-        <activity
             android:name=".erestaurant.PanierActivity"
             android:exported="false" />
         <activity
-            android:name=".erestaurant.ViewPagerAdapter"
-            android:exported="false"
-            tools:ignore="Instantiatable"  />
-        <activity
             android:name=".erestaurant.ItemViewActivity"
             android:exported="false" />
-        <activity
-            android:name=".erestaurant.CategoryAdapter"
-            android:exported="false"
-            tools:ignore="Instantiatable" />
         <activity
             android:name=".erestaurant.CategoryActivity"
             android:exported="false" />

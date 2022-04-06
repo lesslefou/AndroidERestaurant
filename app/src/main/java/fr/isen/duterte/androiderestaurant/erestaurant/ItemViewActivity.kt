@@ -77,7 +77,7 @@ class ItemViewActivity : AppCompatActivity() {
 
         val panierList = checkIfExist()
         val strPanier = Gson().toJson(panierList, PanierList::class.java)
-        File(cacheDir.absolutePath + "panier.json").writeText(strPanier )
+        File(cacheDir.absolutePath + "panier.json").writeText(strPanier)
         finish()
     }
 
@@ -87,8 +87,15 @@ class ItemViewActivity : AppCompatActivity() {
      */
     private fun checkIfExist(): PanierList? {
         var exist = false
-        val panierList = Gson().fromJson(File(cacheDir.absolutePath + "panier.json").readText(),
-            PanierList::class.java)
+        val file = File(cacheDir.absolutePath + "panier.json")
+        val panierList = if(file.exists()) {
+            Gson().fromJson(
+                file.readText(),
+                PanierList::class.java
+            )
+        } else {
+            PanierList(arrayListOf())
+        }
 
         panierList.panier.forEach{
             Log.d("Panier", "name ${it.apiItems.name_fr} , item ${this.item.name_fr}")

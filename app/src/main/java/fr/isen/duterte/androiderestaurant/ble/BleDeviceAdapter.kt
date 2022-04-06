@@ -3,7 +3,6 @@ package fr.isen.duterte.androiderestaurant.ble
 import android.bluetooth.BluetoothGattCharacteristic
 import android.bluetooth.BluetoothGattDescriptor
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,13 +17,13 @@ import fr.isen.duterte.androiderestaurant.R
 import java.util.*
 import kotlin.collections.ArrayList
 
-class BleDeviceAdapterActivity(
+class BleDeviceAdapter(
     val context: Context,
     val serviceList: MutableList<BleService>,
     private val readCharacteristicCallback: (BluetoothGattCharacteristic) -> Unit,
     private val writeCharacteristicCallback: (BluetoothGattCharacteristic) -> Unit,
     private val notifyCharacteristicCallback: (BluetoothGattCharacteristic, Boolean) -> Unit
-    ):ExpandableRecyclerViewAdapter<BleDeviceAdapterActivity.ServiceViewHolder, BleDeviceAdapterActivity.CharacteristicViewHolder>(
+    ):ExpandableRecyclerViewAdapter<BleDeviceAdapter.ServiceViewHolder, BleDeviceAdapter.CharacteristicViewHolder>(
         serviceList
     ){
 

@@ -3,6 +3,7 @@ package fr.isen.duterte.androiderestaurant.erestaurant
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,8 +26,15 @@ class PanierActivity : AppCompatActivity() {
         binding = ActivityPanierBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        panierList = Gson().fromJson(File(cacheDir.absolutePath + "panier.json").readText(),
-            PanierList::class.java)
+        val file = File(cacheDir.absolutePath + "panier.json")
+
+        panierList = if(file.exists()) {
+            Gson().fromJson( file.readText(), PanierList::class.java )
+        } else {
+            PanierList(arrayListOf())
+        }
+
+
         monRecycler = binding.recycleViewPanier
         monRecycler.layoutManager = LinearLayoutManager(this)
         monRecycler.adapter = PanierAdapter(panierList.panier){
@@ -43,12 +51,10 @@ class PanierActivity : AppCompatActivity() {
      * Finalisation de la commande
      */
     private fun commander(){
-        panierList.panier.forEach{
-            panierList.panier.remove(it)
-        }
+        panierList = PanierList(arrayListOf())
         val strPanier = Gson().toJson(panierList, PanierList::class.java)
         File(cacheDir.absolutePath + "panier.json").writeText(strPanier )
-
+        sharedPreferenceUpdate(0)
 
         val intent = Intent(this, HomeActivity::class.java)
         Toast.makeText(applicationContext, R.string.commanderToast, Toast.LENGTH_SHORT).show()
@@ -60,10 +66,17 @@ class PanierActivity : AppCompatActivity() {
      * Suppression de l'item du fichier et réduction de la quantité des shared preferences
      */
     private fun deleteItem(item: ItemPanier) {
-        panierList.panier.forEach {
-            if (it.apiItems.equals(item)) {
-                sharedPreferenceUpdate(-it.quantity)
-                panierList.panier.remove(it)
+        Log.d("panier", panierList.panier.size.toString() )
+        if (panierList.panier.size == 0){
+            panierList = PanierList(arrayListOf())
+            sharedPreferenceUpdate(0)
+        }
+        else {
+            panierList.panier.forEach {
+                if (it.apiItems.equals(item)) {
+                    panierList.panier.remove(it)
+                    sharedPreferenceUpdate(-it.quantity)
+                }
             }
         }
 
@@ -85,7 +98,11 @@ class PanierActivity : AppCompatActivity() {
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         )
         var nbItem = sharedPreferences.getInt("nbItems", 0)
-        nbItem += quantity
+        if (quantity == 0){
+            nbItem = 0
+        } else {
+            nbItem += quantity
+        }
         sharedPreferences.edit()
             .putInt("nbItems",nbItem)
             .apply()

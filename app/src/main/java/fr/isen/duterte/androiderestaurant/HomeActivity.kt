@@ -10,6 +10,7 @@ import androidx.security.crypto.MasterKeys
 import fr.isen.duterte.androiderestaurant.ble.BleLauncherActivity
 import fr.isen.duterte.androiderestaurant.databinding.ActivityMainBinding
 import fr.isen.duterte.androiderestaurant.erestaurant.CategoryActivity
+import java.io.File
 
 class HomeActivity : AppCompatActivity() {
 

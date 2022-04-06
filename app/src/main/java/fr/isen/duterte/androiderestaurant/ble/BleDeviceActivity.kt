@@ -19,7 +19,7 @@ import java.util.*
 class BleDeviceActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBleDeviceBinding
     private var bluetoothGatt: BluetoothGatt? = null
-    private lateinit var bleDeviceAdapter: BleDeviceAdapterActivity
+    private lateinit var bleDeviceAdapter: BleDeviceAdapter
     private var timer: Timer? = null
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -109,7 +109,7 @@ class BleDeviceActivity : AppCompatActivity() {
     private fun ServicesDiscovered(gatt: BluetoothGatt?) {
         gatt?.services?.let {
             runOnUiThread {
-                bleDeviceAdapter = BleDeviceAdapterActivity(
+                bleDeviceAdapter = BleDeviceAdapter(
                     this,
                     it.map { service ->
                         Log.i("service",service.toString())
