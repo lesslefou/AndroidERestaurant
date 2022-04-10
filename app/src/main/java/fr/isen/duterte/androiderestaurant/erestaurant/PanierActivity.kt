@@ -66,17 +66,21 @@ class PanierActivity : AppCompatActivity() {
      * Suppression de l'item du fichier et réduction de la quantité des shared preferences
      */
     private fun deleteItem(item: ItemPanier) {
-        Log.d("panier", panierList.panier.size.toString() )
         if (panierList.panier.size == 0){
             panierList = PanierList(arrayListOf())
             sharedPreferenceUpdate(0)
         }
         else {
+            var itemToDelete = false
             panierList.panier.forEach {
-                if (it.apiItems.equals(item)) {
-                    panierList.panier.remove(it)
-                    sharedPreferenceUpdate(-it.quantity)
+                if (it.apiItems == item.apiItems) {
+                    itemToDelete = true
                 }
+            }
+            if (itemToDelete) {
+                panierList.panier.remove(item)
+                sharedPreferenceUpdate(-item.quantity)
+
             }
         }
 

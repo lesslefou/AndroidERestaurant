@@ -49,9 +49,8 @@ class PanierAdapter(val data: ArrayList<ItemPanier>, val clickListener: (ItemPan
             .into(holder.imageView);
 
         holder.deleteItem.setOnClickListener {
-            data.remove(data[position])
-            notifyItemRemoved(position)
             clickListener(item)
+            notifyItemRemoved(position)
         }
     }
 
